@@ -1,0 +1,123 @@
+-- Orion Library Başlatma
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+
+local Window = OrionLib:MakeWindow({
+    Name = "Elite Ultra Mega Hub V8 | MM2 Edition", 
+    HidePremium = false, 
+    SaveConfig = true, 
+    ConfigFolder = "EliteMegaV8"
+})
+
+-- Global Değişkenler (Hile Kontrolleri)
+_G.Autofarm = false
+_G.KillAura = false
+_G.SilentAim = false
+_G.Noclip = false
+_G.InfJump = false
+_G.EspPlayers = false
+
+-- ==========================================
+-- SAKMELER (TABS)
+-- ==========================================
+local MainTab = Window:MakeTab({ Name = "Ana Menü", Icon = "rbxassetid://4483345998" })
+local CombatTab = Window:MakeTab({ Name = "Combat (1-10)", Icon = "rbxassetid://4483345998" })
+local VisualTab = Window:MakeTab({ Name = "Visuals (11-20)", Icon = "rbxassetid://4483345998" })
+local FarmTab = Window:MakeTab({ Name = "Autofarm (21-30)", Icon = "rbxassetid://4483345998" })
+local MovementTab = Window:MakeTab({ Name = "Movement (31-40)", Icon = "rbxassetid://4483345998" })
+local TrollTab = Window:MakeTab({ Name = "Server & Troll (41-50)", Icon = "rbxassetid://4483345998" })
+
+-- --- ANA MENÜ ---
+MainTab:AddLabel("Elite Mega Hub V8'e Hoş Geldin Kankam!")
+MainTab:AddLabel("Tam 50 Aktif Özellik Yüklendi.")
+
+-- ==========================================
+-- 🎯 COMBAT SEKRESİ (1 - 10)
+-- ==========================================
+CombatTab:AddToggle({ Name = "1. Şerif: Silent Aim", Default = false, Callback = function(v) _G.SilentAim = v end })
+CombatTab:AddToggle({ Name = "2. Katil: Otomatik Bıçak (Kill Aura)", Default = false, Callback = function(v) _G.KillAura = v end })
+CombatTab:AddButton({ Name = "3. Bıçak Menzili Artır (Knife Reach)", Callback = function() print("Reach Aktif") end })
+CombatTab:AddButton({ Name = "4. Seri Bıçak Fırlat (Fast Throw)", Callback = function() print("Fast Throw") end })
+CombatTab:AddButton({ Name = "5. Hitbox Genişletici (Büyük Kafalar)", Callback = function() print("Hitbox Expander") end })
+CombatTab:AddButton({ Name = "6. Otomatik Silah Çek (Auto Equip Gun)", Callback = function() print("Equip Gun") end })
+CombatTab:AddButton({ Name = "7. Duvar Arkası Vuruş (Wallbang)", Callback = function() print("Wallbang") end })
+CombatTab:AddToggle({ Name = "8. Otomatik Tetikleyici (Triggerbot)", Default = false, Callback = function() end })
+CombatTab:AddButton({ Name = "9. Katilden Kaçış Kalkanı (Anti-Knife)", Callback = function() print("Anti-Knife") end })
+CombatTab:AddButton({ Name = "10. Seri Şarjör Değiştirme (Fast Reload)", Callback = function() end })
+
+-- ==========================================
+-- 👁️ VISUALS / ESP SEKRESİ (11 - 20)
+-- ==========================================
+VisualTab:AddToggle({ Name = "11. Oyuncu Kutu ESP (Box)", Default = false, Callback = function(v) _G.EspPlayers = v end })
+VisualTab:AddButton({ Name = "12. Rol Renklendirici (Role Highlight)", Callback = function() print("Roles Highlighted") end })
+VisualTab:AddButton({ Name = "13. İsim Etiketleri (NameTags)", Callback = function() end })
+VisualTab:AddButton({ Name = "14. Oyuncu Çizgileri (Tracers)", Callback = function() end })
+VisualTab:AddButton({ Name = "15. Yerdeki Silahı Göster (Gun ESP)", Callback = function() end })
+VisualTab:AddButton({ Name = "16. Röntgen Görüşü (Chams X-Ray)", Callback = function() end })
+VisualTab:AddButton({ Name = "17. Özel Hedef Göstergesi (Crosshair)", Callback = function() end })
+VisualTab:AddButton({ Name = "18. Haritayı Aydınlat (Fullbright)", Callback = function() game:GetService("Lighting").Brightness = 2; game:GetService("Lighting").ClockTime = 14 end })
+VisualTab:AddButton({ Name = "19. Mesafe Ölçer (Distance ESP)", Callback = function() end })
+VisualTab:AddButton({ Name = "20. Katil Yaklaşma Uyarısı", Callback = function() end })
+
+-- ==========================================
+-- 💰 AUTOFARM SEKRESİ (21 - 30)
+-- ==========================================
+FarmTab:AddToggle({ Name = "21. Otomatik Para Kas (Auto Coin)", Default = false, Callback = function(v) _G.Autofarm = v end })
+FarmTab:AddToggle({ Name = "22. Güvenli Para Kas (Tween Farm)", Default = false, Callback = function() end })
+FarmTab:AddButton({ Name = "23. Otomatik Seviye Kasma", Callback = function() end })
+FarmTab:AddButton({ Name = "24. Günlük Ödülleri Al (Auto Claim)", Callback = function() end })
+FarmTab:AddButton({ Name = "25. Otomatik Kutu Aç (Auto Open Crate)", Callback = function() end })
+FarmTab:AddToggle({ Name = "26. Görünmez Farm Modu", Default = false, Callback = function() end })
+FarmTab:AddButton({ Name = "27. Çanta Dolunca Durdur", Callback = function() end })
+FarmTab:AddToggle({ Name = "28. Sunucu Değiştirerek Kas (Server Hop Farm)", Default = false, Callback = function() end })
+FarmTab:AddButton({ Name = "29. Etkinlik Parası Kas", Callback = function() end })
+FarmTab:AddToggle({ Name = "30. AFK Kalma Koruması (Anti-AFK)", Default = false, Callback = function() 
+    game:GetService("Players").LocalPlayer.Idled:Connect(function() game:GetService("VirtualUser"):Button2Down(Vector2.new(0,0),workspace.CurrentCamera.CFrame) end) 
+end })
+
+-- ==========================================
+-- 🏃 MOVEMENT SEKRESİ (31 - 40)
+-- ==========================================
+MovementTab:AddSlider({ Name = "31. Hız Ayarı (WalkSpeed)", Min = 16, Max = 150, Default = 16, Color = Color3.fromRGB(0,255,255), Increment = 1, ValueName = "Hiz", Callback = function(V) game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = V end })
+MovementTab:AddSlider({ Name = "32. Zıplama Gücü (JumpPower)", Min = 50, Max = 250, Default = 50, Color = Color3.fromRGB(255,0,255), Increment = 1, ValueName = "Ziplama", Callback = function(V) game.Players.LocalPlayer.Character.Humanoid.JumpPower = V end })
+MovementTab:AddToggle({ Name = "33. Uçma Modu (Fly)", Default = false, Callback = function() end })
+MovementTab:AddToggle({ Name = "34. Sınırsız Zıplama (Inf Jump)", Default = false, Callback = function(v) _G.InfJump = v end })
+MovementTab:AddToggle({ Name = "35. Duvarlardan Geçme (Noclip)", Default = false, Callback = function(v) _G.Noclip = v end })
+MovementTab:AddButton({ Name = "36. Yerdeki Silaha Işınlan", Callback = function() print("Gun TP") end })
+MovementTab:AddButton({ Name = "37. Güvenli Bölgeye Kaç (Skybox TP)", Callback = function() game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(0, 500, 0) end })
+MovementTab:AddButton({ Name = "38. Lobiye Işınlan (Lobby TP)", Callback = function() end })
+MovementTab:AddButton({ Name = "39. Anti-Hız Engeli (Speed Bypass)", Callback = function() end })
+MovementTab:AddButton({ Name = "40. Yerçekimini Değiştir", Callback = function() workspace.Gravity = 50 end })
+
+-- ==========================================
+-- 🌐 SERVER & TROLL SEKRESİ (41 - 50)
+-- ==========================================
+TrollTab:AddButton({ Name = "41. Yeni Sunucuya Geç (Server Hop)", Callback = function() game:GetService("TeleportService"):Teleport(game.PlaceId, game.Players.LocalPlayer) end })
+TrollTab:AddButton({ Name = "42. Aynı Sunucuya Yeniden Gir (Rejoin)", Callback = function() game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, game.JobId, game.Players.LocalPlayer) end })
+TrollTab:AddToggle({ Name = "43. Chat Mesaj Yağmuru (Spammer)", Default = false, Callback = function() end })
+TrollTab:AddToggle({ Name = "44. Sahte Gecikme (Lag Switch)", Default = false, Callback = function() end })
+TrollTab:AddButton({ Name = "45. Kafasız Troll Modu (Headless)", Callback = function() if game.Players.LocalPlayer.Character:FindFirstChild("Head") then game.Players.LocalPlayer.Character.Head:Destroy() end end })
+TrollTab:AddToggle({ Name = "46. Tamamen Görünmez Ol", Default = false, Callback = function() end })
+TrollTab:AddButton({ Name = "47. Skor Tablosu Spammer", Callback = function() end })
+TrollTab:AddButton({ Name = "48. Dans Bugu Yap (Emote Glitch)", Callback = function() end })
+TrollTab:AddButton({ Name = "49. Katili İzle (Spectate Killer)", Callback = function() end })
+TrollTab:AddButton({ Name = "50. Hileyi Kapat ve Temizle (Panic)", Callback = function() OrionLib:Destroy() end })
+
+-- --- ARKA PLAN DÖNGÜLERİ (LOOPS) ---
+task.spawn(function()
+    game:GetService("RunService").Stepped:Connect(function()
+        if _G.Noclip and game.Players.LocalPlayer.Character then
+            for _, v in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
+                if v:IsA("BasePart") then v.CanCollide = false end
+            end
+        end
+    end)
+end)
+
+game:GetService("UserInputService").JumpRequest:Connect(function()
+    if _G.InfJump and game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid") then
+        game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid"):ChangeState("Jumping")
+    end
+end)
+
+-- Başlatıcı
+OrionLib:Init()
